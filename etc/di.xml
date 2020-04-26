@@ -12,4 +12,5 @@
             <argument name="resourceModel" xsi:type="string">OAG\OrderReview\Model\ResourceModel\OrderReview</argument>
         </arguments>
     </virtualType>
+	<preference for="OAG\OrderReview\Api\ReviewManagementInterface" type="OAG\OrderReview\Model\ReviewManagement"/>
 </config>

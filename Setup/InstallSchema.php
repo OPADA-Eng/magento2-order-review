@@ -34,6 +34,12 @@ class InstallSchema implements InstallSchemaInterface
                 ['unsigned' => true, 'nullable' => false],
                 'Order ID'
             )->addColumn(
+                'increment_id',
+                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                null,
+                [ 'nullable' => true,'default' => null],
+                'Increment ID'
+            )->addColumn(
                 'verified',
                 \Magento\Framework\DB\Ddl\Table::TYPE_BOOLEAN,
                 null,

@@ -1,6 +1,6 @@
 <?php 
 namespace OAG\OrderReview\Api;
- 
+use \OAG\OrderReview\Api\Data\OrderReview;
  
 interface ReviewManagementInterface {
 
@@ -8,7 +8,7 @@ interface ReviewManagementInterface {
 	/**
 	 * GET for review api
 	 * @param string $increment_id
-	 * @return json
+	 * @return \OAG\OrderReview\Api\Data\OrderReview
 	 */
 	public function getReview($increment_id);
 	/**
@@ -18,7 +18,7 @@ interface ReviewManagementInterface {
 	 * @param int $product
 	 * @param int $customer_support
 	 * @param string $comment
-	 * @return json
+	 * @return string
 	 */
     public function addReview($increment_id,$shipping,$product,$customer_support,$comment);
     

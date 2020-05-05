@@ -14,17 +14,15 @@ class ReviewManagement implements ReviewManagementInterface {
     protected $modelOrderReview;
     protected $modelOrder;
 
-    /**
-    * @var \Magento\Framework\Controller\Result\JsonFactory
-    */
-    protected $resultJsonFactory;
 
     public function __construct(
+        \Magento\Framework\DataObject $dataObj,
         OrderReview $modelOrderReview,
         \Magento\Sales\Model\Order $order
     ) {
         $this->modelOrderReview = $modelOrderReview;
         $this->modelOrder = $order;
+
     }
 
 	/**
@@ -36,8 +34,12 @@ class ReviewManagement implements ReviewManagementInterface {
             $this->modelOrder->loadByIncrementId($increment_id);
             $id = $this->modelOrder->getId();
             $review = $this->modelOrderReview->loadByOrderId($id);
-            $response =['order_id' => $id,'shipping'=>$review->getShipping(),'product'=>$review->getProduct(),'customer_support'=>$review->getCustomerSupport(),'comment'=>$review->getComment()];
-            
+            if ($this->modelOrderReview->getId()) {
+                $response = ['order_id' => $id,'review' => ['shipping'=>$review->getShipping(),'product'=>$review->getProduct(),'customer_support'=>$review->getCustomerSupport(),'comment'=>$review->getComment()]];
+            }
+            else{
+                $response = ['order_id' => $id,'review'=> null];
+            }
         }catch(\Exception $e) {
             $response=['error' => $e->getMessage()];
         }
@@ -79,6 +81,7 @@ class ReviewManagement implements ReviewManagementInterface {
                 return json_encode($response);
             }
             $this->modelOrderReview->setOrderId($this->modelOrder->getId());
+            $this->modelOrderReview->setIncrementId($incrementId);
             $this->modelOrderReview->setShipping((int) $shipping);
             $this->modelOrderReview->setProduct((int) $product);
             $this->modelOrderReview->setCustomerSupport((int) $customer_support);

@@ -96,6 +96,7 @@ class Addreviewpost extends \Magento\Contact\Controller\Index implements HttpPos
             }
 
             $this->modelOrderReview->setOrderId($this->modelOrder->getId());
+            $this->modelOrderReview->setIncrementId($incrementId);
             $this->modelOrderReview->setShipping((int) $params['shipping']);
             $this->modelOrderReview->setProduct((int) $params['product']);
             $this->modelOrderReview->setCustomerSupport((int) $params['customsupport']);
